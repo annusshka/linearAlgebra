@@ -34,7 +34,7 @@ public class Matrix3x extends Matrix {
     }
 
     @Override
-    public Matrix createUnitMatrix(double value) {
+    public Matrix createIdentityMatrix(final double value) {
         Matrix3x matrix = new Matrix3x(new double[size * size]);
 
         int indexMainDiagonal = 0;
@@ -50,8 +50,8 @@ public class Matrix3x extends Matrix {
     }
 
     @Override
-    public Matrix createUnitMatrix() {
-        return createUnitMatrix(1);
+    public Matrix createIdentityMatrix() {
+        return createIdentityMatrix(1);
     }
 
 
@@ -60,7 +60,7 @@ public class Matrix3x extends Matrix {
      * @param matrix
      * @return возвращает определитель
      */
-    public static double getMatrixDeterminant(Matrix3x matrix) {
+    public static double getMatrixDeterminant(final Matrix3x matrix) {
         double determinant = 0.0;
 
         for (int index = 0; index < matrix.getSize(); index++) {
@@ -72,12 +72,11 @@ public class Matrix3x extends Matrix {
         return determinant;
     }
 
-    private double getMinor(int index) {
-        double minor;
+    private double getMinor(final int index) {
         double value1, value2;
 
-        int indexCol = index % size;
-        int indexRow = index / size;
+        final int indexCol = index % size;
+        final int indexRow = index / size;
         int indexCol1 = 0;
         int indexRow1 = 0;
 
@@ -101,8 +100,6 @@ public class Matrix3x extends Matrix {
 
         value1 = this.get((indexRow1) * size + indexCol1) * this.get((indexRow2) * size + indexCol2);
         value2 = this.get((indexRow1) * size + indexCol2) * this.get((indexRow2) * size + indexCol1);
-        minor = value1 - value2;
-
-        return minor;
+        return value1 - value2;
     }
 }

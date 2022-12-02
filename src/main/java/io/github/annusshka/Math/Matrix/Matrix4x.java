@@ -34,8 +34,7 @@ public class Matrix4x extends Matrix {
         return new Matrix4x(new double[length]);
     }
 
-
-    public Matrix createUnitMatrix(double value) {
+    public Matrix createIdentityMatrix(double value) {
         Matrix4x matrix = new Matrix4x(new double[size * size]);
 
         int indexMainDiagonal = 0;
@@ -51,8 +50,8 @@ public class Matrix4x extends Matrix {
     }
 
     @Override
-    public Matrix createUnitMatrix() {
-        return createUnitMatrix(1);
+    public Matrix createIdentityMatrix() {
+        return createIdentityMatrix(1);
     }
 
     /**

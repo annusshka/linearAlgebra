@@ -16,8 +16,7 @@ public abstract class Matrix {
 
     double[] vector;
 
-    public Matrix(double[] vector, int size) {
-        //super(vector, size * size);
+    public Matrix(double[] vector, final int size) {
         if (vector.length == size * size) {
             this.vector = vector;
             this.size = size;
@@ -33,19 +32,9 @@ public abstract class Matrix {
             this.size = 0;
             this.length = 0;
         }
-        /*
-        this.size = size;
-        this.length = size * size;
-        this.vector = vector;
-
-         */
     }
 
     static final float EPS = 1e-7f;
-
-    static boolean isMinus = false;
-
-    private static double detCoeff = 1;
 
     public int getSize() {
         return size;
@@ -59,7 +48,7 @@ public abstract class Matrix {
         return vector;
     }
 
-    public double get(int index) {
+    public double get(final int index) {
         double element = 0;
         try {
             element = vector[index];
@@ -69,28 +58,28 @@ public abstract class Matrix {
         return element;
     }
 
-    public void set(int index, double value) {
+    public void set(final int index, final double value) {
         if (index >= 0 && index < getVector().length) {
             vector[index] = value;
         }
     }
 
-    public void setVector(double[] vector) {
-        if (vector.length == length) {
-            this.vector = vector;
+    public void setData(double[] data) {
+        if (data.length == length) {
+            this.vector = data;
         } else {
             double[] rightVector = new double[size];
-            System.arraycopy(vector, 0, rightVector, 0, Math.min(vector.length, size));
+            System.arraycopy(data, 0, rightVector, 0, Math.min(data.length, size));
             this.vector = rightVector;
         }
     }
 
 
-    public boolean isEqualSize(Matrix matrix2) {
+    public boolean isEqualSize(final Matrix matrix2) {
         return this.getLength() == matrix2.getLength();
     }
 
-    public boolean isEqualMatrix(Matrix matrix2) {
+    public boolean isEqualMatrix(final Matrix matrix2) {
         if (isEqualSize(matrix2)) {
             for (int index = 0; index < this.getSize(); index++) {
                 if (Math.abs(this.get(index) - matrix2.get(index)) >= EPS) {
@@ -104,28 +93,28 @@ public abstract class Matrix {
         return true;
     }
 
-
     /**
      * Метод проверяет является ли матрица единичной (на главной диагонали находятся единицы, умноженные на
      * какую-то константу, а все остальные значения - нули)
-     * @param matrix
-     * @return
+     * @param matrix проверяемая матрица
+     * @param eps показывает точность вычислений
+     * @return результат проверки
      */
-    public static boolean isUnitMatrix(Matrix matrix) {
+    public static boolean isUnitMatrix(final Matrix matrix, final double eps) {
         double firstElement = matrix.get(0);
-        if (firstElement == 0) {
+        if (Math.abs(firstElement) < eps) {
             return false;
         }
 
         int indexMainDiagonal = 0;
         for (int index = 0; index < matrix.getLength(); index++) {
             if (index == indexMainDiagonal * matrix.getSize() + indexMainDiagonal) {
-                if (matrix.get(index) != firstElement) {
+                if (Math.abs(matrix.get(index) - firstElement) >= eps) {
                     return false;
                 }
 
                 indexMainDiagonal++;
-            } else if (matrix.get(index) != 0){
+            } else if (Math.abs(matrix.get(index)) >= eps){
                 return false;
             }
         }
@@ -133,18 +122,18 @@ public abstract class Matrix {
         return true;
     }
 
-    public abstract Matrix createUnitMatrix(double value);
+    public abstract Matrix createIdentityMatrix(final double value);
 
-    public abstract Matrix createUnitMatrix();
+    public abstract Matrix createIdentityMatrix();
 
-    public abstract Matrix getZeroMatrix(int size);
-    public abstract Vector getZeroVector(int size);
+    public abstract Matrix getZeroMatrix(final int size);
+    public abstract Vector getZeroVector(final int size);
 
     /**
      * Метод транспонирует матрицу. Значения на главное диагонали не меняются, остальные элементы меняются
      * местами с элементами, у которых индекс строки совпадает с их индексом столбца, а индекс столбца -
      * с индексом строки
-     * @return
+     * @return транспонированную матрицу
      */
     public static Matrix transposeMatrix(Matrix matrix) {
         int indexCol = 0, indexRow = 0;
@@ -168,21 +157,15 @@ public abstract class Matrix {
      * @param matrix1 матрица 1
      * @param matrix2 матрица 2
      * @return полученную матрицу
-     * @throws MatrixException
+     * @throws MatrixException оповещает о том, что пытались перемножить разные по размеру матрицы
      */
     public static Matrix sumMatrix(Matrix matrix1, Matrix matrix2) throws MatrixException {
         Matrix matrix = matrix1.getZeroMatrix(matrix1.size);
-        //Matrix matrix = new ZeroMatrix(m1.getSize());
 
         if (matrix1.isEqualSize(matrix2)) {
             for (int index = 0; index < matrix.getLength(); index++) {
-                if (isMinus) {
-                    matrix.getVector()[index] = matrix1.get(index) - matrix2.get(index);
-                } else {
-                    matrix.getVector()[index] = matrix1.get(index) + matrix2.get(index);
-                }
+                matrix.getVector()[index] = matrix1.get(index) + matrix2.get(index);
             }
-            isMinus = false;
 
         } else {
             throw new MatrixException("Matrices of different sizes can't be summed");
@@ -192,24 +175,34 @@ public abstract class Matrix {
     }
 
     public static Matrix minusMatrix(Matrix matrix1, Matrix matrix2) throws MatrixException {
-        isMinus = true;
-        return sumMatrix(matrix1, matrix2);
+        Matrix matrix = matrix1.getZeroMatrix(matrix1.size);
+
+        if (matrix1.isEqualSize(matrix2)) {
+            for (int index = 0; index < matrix.getLength(); index++) {
+                matrix.getVector()[index] = matrix1.get(index)- matrix2.get(index);
+            }
+
+        } else {
+            throw new MatrixException("Matrices of different sizes can't be summed");
+        }
+
+        return matrix;
     }
 
-    public void multiplicateOnValue(double value) {
+    public void multiplicateOnValue(final double value) {
         for (int index = 0; index < this.getLength(); index++) {
             this.set(index, this.get(index) * value);
         }
     }
 
-    public void divideOnValue(double value) throws MatrixException {
+    public void divideOnValue(final double value) throws MatrixException {
         if (Math.abs(value) < EPS) {
             throw new Matrix.MatrixException("Division by zero");
         }
         multiplicateOnValue(1.0 / value);
     }
 
-    public Vector multiplicateOnVector(Vector vector) throws MatrixException {
+    public Vector multiplicateOnVector(final Vector vector) throws MatrixException {
         if (this.getSize() != vector.getSize()) {
             throw new MatrixException("Different sizes can't be multiplicated");
         }
@@ -230,13 +223,15 @@ public abstract class Matrix {
         return result;
     }
 
-    public static Matrix multiplicateMatrices(Matrix matrix1, Matrix matrix2) throws MatrixException {
+    public static Matrix multiplicateMatrices(final Matrix matrix1, final Matrix matrix2)
+            throws MatrixException {
+
         if (!matrix1.isEqualSize(matrix2)) {
             throw new MatrixException("Different sizes can't be multiplicated");
         }
 
         Matrix matrix = matrix1.getZeroMatrix(matrix1.getSize());
-        int size = matrix.getSize();
+        final int size = matrix.getSize();
         int indexShift = 0, indexCol = 0, indexRow = 0;
 
         for (int index = 0; index < matrix.getLength(); index++) {
@@ -254,8 +249,13 @@ public abstract class Matrix {
         return matrix;
     }
 
+    /**
+     * Метод реализует поиск детерминанта путём превращения матрицы в треугольную, а затем перемножение элементов
+     * на главной диагонали
+     * @return определитель
+     */
     public double getDeterminant() {
-        this.getTriangleMatrix();
+        final double detCoeff = this.getTriangleMatrix();
         double determinant = 1;
 
         for (int index = 0; index < size; index++) {
@@ -267,13 +267,17 @@ public abstract class Matrix {
         } else {
             determinant = 0;
         }
-        detCoeff = 1;
 
         return determinant;
     }
 
-    public void getTriangleMatrix() {
+    /**
+     * Метод превращения исходной матрицы в треугольную, используется для поиска определителя
+     * @return коэффициент определителя, полученный вследствие преобразований матрицы
+     */
+    private double getTriangleMatrix() {
         int indexCol = 0, changingIndexRow = 0;
+        double detCoeff = 1;
 
         for (int index = 0; index < size - 1; index++) {
             indexCol = 0;
@@ -284,19 +288,26 @@ public abstract class Matrix {
                 continue;
             } else if (changingIndexRow != -1) {
                 while (indexCol < size) {
-                    swapElements(index * size + indexCol, changingIndexRow * size + indexCol);
+                    this.swapElements(index * size + indexCol, changingIndexRow * size + indexCol);
                     indexCol++;
                 }
                 detCoeff *= -1;
             }
 
-            this.getZeroCol(index);
+            detCoeff *= this.getZeroCol(index);
         }
+        return detCoeff;
     }
 
-    private void getZeroCol(int index) {
+    /**
+     * Метод преобразует исходную матрицу путём обнуления столбца по элементу с переданным индексом
+     * @param index индекс строки/столбца, по нему находят индекс элемента, по которому происходит обнуление
+     * @return коэффициент определителя, полученный вследствие матричных преобразований
+     */
+    private double getZeroCol(final int index) {
         int indexNextRow = index + 1;
         double coeff, coeffNextRow, coeffActualRow = this.get(index * size + index);
+        double detCoeff = 1;
 
         while (indexNextRow < size) {
             coeff = getCoeff(this.get(indexNextRow * size + index), this.get(index * size + index));
@@ -311,19 +322,32 @@ public abstract class Matrix {
 
             indexNextRow++;
         }
+        return detCoeff;
     }
 
-    private void multiplicateOnCoeff(double coeffNextRow, double coeffActualRow, int index, int indexRow, int indexCol) {
+    /**
+     * Метод преобразует строку
+     * @param coeffNextRow коэффициент элемента строки, которую будут преобразовывать
+     * @param coeffActualRow коэффициент элемента строки, по которому будет преобразована следующая строка
+     * @param index индекс строки элемента, по которому будут преобразовывать следующую строку
+     * @param indexRow индекс строки элемента, которую будут преобразовывать
+     * @param indexCol индекс столбца, с которого начинается преобразование
+     */
+    private void multiplicateOnCoeff(
+            double coeffNextRow, double coeffActualRow,
+            int index, int indexRow, int indexCol) {
+
         while (indexCol < size) {
             int actualIndex = indexRow * size + indexCol;
             int prevIndex = index * size + indexCol;
 
-            this.getVector()[actualIndex] = this.get(actualIndex) * coeffActualRow - this.get(prevIndex) * coeffNextRow;
+            this.getVector()[actualIndex] = this.get(actualIndex) * coeffActualRow -
+                    this.get(prevIndex) * coeffNextRow;
             indexCol++;
         }
     }
 
-    private int getSwapIndexRow(int index) {
+    private int getSwapIndexRow(final int index) {
         int changingIndexRow = -1;
         int actualIndex = index * size + index;
         double minValue = Math.abs(this.get(actualIndex));
@@ -341,14 +365,9 @@ public abstract class Matrix {
 
         return changingIndexRow;
     }
-
-    /**
-     * Метод получения обратной матрицы. Изначальную матрицу умножает на единичную, затем превращает изначальную матрицу
-     * в треугольную с параллельным преобразованием единичной, затем вызывает обратный ход метода
-     * @throws MatrixException сообщает о том, что матрица не имеет обратной матрицы
-     */
+    /*
     public void getInverseMatrix() throws MatrixException {
-        Matrix unitMatrix = createUnitMatrix();
+        Matrix unitMatrix = createIdentityMatrix();
         double coeff, coeffNextRow, coeffActualRow;
         int indexCol, indexRow, changingIndexRow;
 
@@ -386,8 +405,17 @@ public abstract class Matrix {
         reversePassOfInverseMatrixMethod(this, unitMatrix);
     }
 
+     */
+
+    /**
+     * Метод получения обратной матрицы. Изначальную матрицу умножает на единичную, затем превращает изначальную
+     * матрицу в треугольную с параллельным преобразованием единичной, затем вызывает обратный ход метода
+     * @param matrix исходная матрица
+     * @return обратный ход метода, который возвращает обратную матрицу
+     *  @throws MatrixException сообщает о том, что матрица не имеет обратной матрицы
+     */
     public static Matrix getInverseMatrix(Matrix matrix) throws MatrixException {
-        Matrix unitMatrix = matrix.createUnitMatrix();
+        Matrix unitMatrix = matrix.createIdentityMatrix();
         double coeff, coeffNextRow, coeffActualRow;
         int indexCol, indexRow, changingIndexRow;
         int size = matrix.getSize();
@@ -465,19 +493,20 @@ public abstract class Matrix {
         return unitMatrix;
     }
 
-    public void swapElements(int index, int changingIndex) {
-        double changingValue = this.get(index);
+    private void swapElements(final int index, final int changingIndex) {
+        final double changingValue = this.get(index);
         this.getVector()[index] = this.get(changingIndex);
         this.getVector()[changingIndex] = changingValue;
     }
 
     /**
-     * Метод решает систему линейных уравнений методом Гаусса.
-     * Если система будет иметь множество решений, метод найдёт частное решение.
-     * @param matrix
-     * @param vector
-     * @return
-     * @throws MatrixException
+     * Метод решает систему линейных уравнений методом Гаусса. Если система будет иметь множество решений,
+     * метод найдёт частное решение, подставив значение 1.
+     * Метод реализует прямой ход методом Гаусса и вызывает обратный ход.
+     * @param matrix основная матрица СЛАУ
+     * @param vector вектор-столбец свободных членов
+     * @return вектор-столбец неизвестных переменных
+     * @throws MatrixException оповещает, если система не имеет решений
      */
     public static Vector solutionByGaussMethod(Matrix matrix, Vector vector) throws MatrixException {
         double coeff, coeffNextRow, coeffActualRow;
@@ -511,7 +540,8 @@ public abstract class Matrix {
                     vector.getVector()[indexRow] = vector.get(indexRow) - vector.get(index) * coeff;
                 } else {
                     matrix.multiplicateOnCoeff(coeffNextRow, coeffActualRow, index, indexRow, index);
-                    vector.getVector()[indexRow] = vector.get(indexRow) * coeffActualRow - vector.get(index) * coeffNextRow;
+                    vector.getVector()[indexRow] = vector.get(indexRow) * coeffActualRow -
+                            vector.get(index) * coeffNextRow;
 
                 }
 
@@ -521,7 +551,14 @@ public abstract class Matrix {
         return reversePassOfGaussMethod(matrix, vector);
     }
 
-    private static Vector reversePassOfGaussMethod(Matrix matrix, Vector vector) throws MatrixException {
+    /**
+     * метод реализует обратный ход метода Гаусса
+     * @param matrix треугольная матрица СЛАУ
+     * @param vector вектор-столбец свободных членов
+     * @return вектор-столбец неизвестных переменных
+     * @throws MatrixException оповещает, если система не имеет решений
+     */
+    private static Vector reversePassOfGaussMethod(final Matrix matrix, final Vector vector) throws MatrixException {
         Vector solutionVector = vector.getZeroVector(vector.getSize());
         int indexCol;
         int size = matrix.getSize();
@@ -538,7 +575,8 @@ public abstract class Matrix {
                 indexCol--;
             }
 
-            //Не существует решений или множество решений, поэтому ищем частное
+            // Не существует решений
+            // Иначе множество решений, поэтому ищем частное
             if (matrix.get(index * size + index) == 0 &&
                     ((sum == 0 && vector.get(index) != 0) || (sum != 0 && vector.get(index) == 0))) {
                 throw new MatrixException("There are no solutions");
@@ -553,7 +591,7 @@ public abstract class Matrix {
         return solutionVector;
     }
 
-    private static double getCoeff(double value1, double value2) {
+    private static double getCoeff(final double value1, final double value2) {
         if (Math.abs(value2) < EPS) {
             throw new ArithmeticException("Division by zero");
         }

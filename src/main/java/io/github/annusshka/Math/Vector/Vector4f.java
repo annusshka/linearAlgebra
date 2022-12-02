@@ -6,7 +6,7 @@ package io.github.annusshka.Math.Vector;
 
 public class Vector4f extends Vector {
 
-    static final int size = 4;
+    private static final int size = 4;
 
     private double[] vector;
 

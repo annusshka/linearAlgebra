@@ -6,7 +6,7 @@ package io.github.annusshka.Math.Vector;
 
 public class Vector3f extends Vector {
 
-    static final int size = 3;
+    private static final int size = 3;
 
     private double[] vector;
 
@@ -23,7 +23,7 @@ public class Vector3f extends Vector {
         return new Vector3f(new double[size]);
     }
 
-    public static Vector multiplicateVectors(Vector3f vector1, Vector3f vector2) {
+    public static Vector сrossProduct(final Vector3f vector1, final Vector3f vector2) {
         Vector vector = vector1.getZeroVector(vector1.getSize());
         if (isEqualSize(vector1, vector2)) {
             vector.getVector()[0] = vector1.get(1) * vector2.get(2) - vector1.get(2) * vector2.get(1);

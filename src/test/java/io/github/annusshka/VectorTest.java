@@ -8,7 +8,6 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class VectorTest {
-
     static final float EPS = 1e-7f;
 
     @Test
@@ -156,19 +155,19 @@ public class VectorTest {
     public void multiplicateScalarVector() {
         Vector2f vector2f1 = new Vector2f(new double[]{0, 1});
         Vector2f vector2f2 = new Vector2f(new double[]{5, 6});
-        Assertions.assertThat(Vector.multiplicateScalarVector(vector2f1, vector2f2)).
+        Assertions.assertThat(Vector.dotProduct(vector2f1, vector2f2)).
                 isEqualTo(6);
 
         Vector3f vector3f1 = new Vector3f(new double[]{0, 3.3, 4.1});
         Vector3f vector3f2 = new Vector3f(new double[]{-7.3, -1, 3.4});
         double result1 = 10.64;
-        Assertions.assertThat(Math.abs(Vector.multiplicateScalarVector(vector3f1, vector3f2) - result1) < EPS).
+        Assertions.assertThat(Math.abs(Vector.dotProduct(vector3f1, vector3f2) - result1) < EPS).
                 isEqualTo(true);
 
         Vector4f vector4f1 = new Vector4f(new double[]{-8, 3, 2, -2});
         Vector4f vector4f2 = new Vector4f(new double[]{0.7, 3, 0, 1});
         double result2 = 1.4;
-        Assertions.assertThat(Math.abs(Vector.multiplicateScalarVector(vector4f1, vector4f2) - result2) < EPS).
+        Assertions.assertThat(Math.abs(Vector.dotProduct(vector4f1, vector4f2) - result2) < EPS).
                 isEqualTo(true);
     }
 
@@ -177,7 +176,7 @@ public class VectorTest {
         Vector3f vector3f1 = new Vector3f(new double[]{-2, 3, 0});
         Vector3f vector3f2 = new Vector3f(new double[]{-2, 0, 6});
 
-        Assertions.assertThat(Vector3f.multiplicateVectors(vector3f1, vector3f2).getVector()).
+        Assertions.assertThat(Vector3f.сrossProduct(vector3f1, vector3f2).getVector()).
                 isEqualTo(new double[]{18, 12, 6});
     }
 }

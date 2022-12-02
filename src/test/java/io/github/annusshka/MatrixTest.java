@@ -10,34 +10,34 @@ import org.junit.jupiter.api.Test;
 import java.util.*;
 
 public class MatrixTest {
-
+    static final float EPS = 1e-10f;
     @Test
     public void createUnitMatrix() {
         Matrix3x matrix3x = new Matrix3x(new double[]{5.4, 0, 0, 0, 5.4, 0, 0, 0, 5.4});
-        Assertions.assertThat(matrix3x.createUnitMatrix(5.4).getVector()).
+        Assertions.assertThat(matrix3x.createIdentityMatrix(5.4).getVector()).
                 isEqualTo(matrix3x.getVector());
 
         Matrix4x matrix4x = new Matrix4x(new double[]{3, 0, 0, 0, 0, 3, 0, 0, 0, 0, 3, 0, 0, 0, 0, 3});
-        Assertions.assertThat(matrix4x.createUnitMatrix(3).getVector()).
+        Assertions.assertThat(matrix4x.createIdentityMatrix(3).getVector()).
                 isEqualTo(matrix4x.getVector());
     }
 
     @Test
     public void isUnitMatrix() {
         Matrix3x matrix3x1 = new Matrix3x(new double[]{-0.5, 0, 0, 0, -0.5, 0, 0, 0, -0.5});
-        Assertions.assertThat(Matrix.isUnitMatrix(matrix3x1)).isEqualTo(true);
+        Assertions.assertThat(Matrix.isUnitMatrix(matrix3x1, EPS)).isEqualTo(true);
 
         Matrix3x matrix3x2 = new Matrix3x(new double[]{-0.5, 6, 0, 0, -0.5, -0.5, 0, 0, -0.5});
-        Assertions.assertThat(Matrix.isUnitMatrix(matrix3x2)).isEqualTo(false);
+        Assertions.assertThat(Matrix.isUnitMatrix(matrix3x2, EPS)).isEqualTo(false);
 
         Matrix3x matrix3x3 = new Matrix3x(new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0});
-        Assertions.assertThat(Matrix.isUnitMatrix(matrix3x3)).isEqualTo(false);
+        Assertions.assertThat(Matrix.isUnitMatrix(matrix3x3, EPS)).isEqualTo(false);
 
         Matrix4x matrix4x1 = new Matrix4x(new double[]{3, 0, 0, 0, 0, 3, 0, 0, 0, 0, 3, 0, 0, 0, 0, 3});
-        Assertions.assertThat(Matrix.isUnitMatrix(matrix4x1)).isEqualTo(true);
+        Assertions.assertThat(Matrix.isUnitMatrix(matrix4x1, EPS)).isEqualTo(true);
 
         Matrix4x matrix4x2 = new Matrix4x(new double[]{3, 0, 0.4, 0, 0, 3, 0, 0, 6.5, 0, 3, 0, 0, 0, 0, 3});
-        Assertions.assertThat(Matrix.isUnitMatrix(matrix4x2)).isEqualTo(false);
+        Assertions.assertThat(Matrix.isUnitMatrix(matrix4x2, EPS)).isEqualTo(false);
     }
 
     @Test
@@ -215,7 +215,9 @@ public class MatrixTest {
                 isEqualTo(true);
 
         Matrix3x matrix3x2 = new Matrix3x(new double[]{2, 0, 7, 6, 0, 4, 5, 0, -3});
-        Throwable thrown = Assertions.catchThrowable(matrix3x2::getInverseMatrix);
+        Throwable thrown = Assertions.catchThrowable(() -> {
+            Matrix.getInverseMatrix(matrix3x2);
+        });
         Assertions.assertThat(thrown).isInstanceOf(Matrix.MatrixException.class);
         Assertions.assertThat(thrown.getMessage()).isNotBlank();
         Assertions.assertThat(thrown.getMessage()).isEqualTo("Matrix hasn't inverse matrix");

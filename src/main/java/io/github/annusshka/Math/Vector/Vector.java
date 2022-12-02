@@ -9,7 +9,7 @@ public abstract class Vector {
         }
     }
 
-    protected int size;
+    protected final int size;
 
     protected double[] vector;
 
@@ -28,10 +28,7 @@ public abstract class Vector {
         }
     }
 
-
     static final float EPS = 1e-7f;
-
-    static boolean isMinus = false;
 
     public int getSize() {
         return size;
@@ -41,17 +38,17 @@ public abstract class Vector {
         return vector;
     }
 
-    public void setVector(double[] vector) {
-        if (vector.length == size) {
-            this.vector = vector;
+    public void setData(double[] data) {
+        if (data.length == size) {
+            this.vector = data;
         } else {
             double[] rightVector = new double[size];
-            System.arraycopy(vector, 0, rightVector, 0, Math.min(vector.length, size));
+            System.arraycopy(data, 0, rightVector, 0, Math.min(data.length, size));
             this.vector = rightVector;
         }
     }
 
-    public double get(int index) {
+    public double get(final int index) {
         double element = 0;
         if (index >= 0 && index < this.getSize()) {
             element = vector[index];
@@ -59,19 +56,19 @@ public abstract class Vector {
         return element;
     }
 
-    public void set(int index, double value) {
+    public void set(final int index, final double value) {
         if (index >= 0 && index < getVector().length) {
             vector[index] = value;
         }
     }
 
-    public abstract Vector getZeroVector(int size);
+    public abstract Vector getZeroVector(final int size);
 
-    protected static boolean isEqualSize(Vector v1, Vector v2) {
+    protected static boolean isEqualSize(final Vector v1, final Vector v2) {
         return v1.getSize() == v2.getSize();
     }
 
-    public boolean isEqual(Vector otherVector) {
+    public boolean isEqual(final Vector otherVector) {
         if (isEqualSize(this, otherVector)) {
             for (int index = 0; index < this.getVector().length; index++) {
                 if (Math.abs(this.get(index) - otherVector.get(index)) >= EPS) {
@@ -85,18 +82,27 @@ public abstract class Vector {
         return true;
     }
 
-    public static Vector sumVector(Vector vector1, Vector vector2) throws VectorException {
+    public static Vector sumVector(final Vector vector1, final Vector vector2) throws VectorException {
         Vector resultVector = vector1.getZeroVector(vector1.getSize());
 
         if (isEqualSize(vector1, vector2)) {
             for (int index = 0; index < vector1.getSize(); index++) {
-                if (isMinus) {
-                    resultVector.getVector()[index] = vector1.get(index) - vector2.get(index);
-                } else {
-                    resultVector.getVector()[index] = vector1.get(index) + vector2.get(index);
-                }
+                resultVector.getVector()[index] = vector1.get(index) + vector2.get(index);
             }
-            isMinus = false;
+        } else {
+            throw new Vector.VectorException("Vectors of different sizes can't be summed");
+        }
+
+        return resultVector;
+    }
+
+    public static Vector minusVector(final Vector vector1, final Vector vector2) throws VectorException {
+        Vector resultVector = vector1.getZeroVector(vector1.getSize());
+
+        if (isEqualSize(vector1, vector2)) {
+            for (int index = 0; index < vector1.getSize(); index++) {
+                resultVector.getVector()[index] = vector1.get(index) - vector2.get(index);
+            }
 
         } else {
             throw new Vector.VectorException("Vectors of different sizes can't be summed");
@@ -105,30 +111,25 @@ public abstract class Vector {
         return resultVector;
     }
 
-    public static Vector minusVector(Vector vector1, Vector vector2) throws VectorException {
-        isMinus = true;
-        return sumVector(vector1, vector2);
-    }
-
-    public Vector sumWithConstant(double constant) {
+    public Vector sumWithConstant(final double constant) {
         for (int index = 0; index < this.getSize(); index++) {
             this.getVector()[index] += constant;
         }
         return this;
     }
 
-    public Vector minusWithConstant(double constant) {
+    public Vector minusWithConstant(final double constant) {
         return sumWithConstant(-constant);
     }
 
-    public Vector multiplicateVectorOnConstant(double constant) {
+    public Vector multiplicateVectorOnConstant(final double constant) {
         for (int index = 0; index < this.getSize(); index++) {
             this.getVector()[index] *= constant;
         }
         return this;
     }
 
-    public Vector divideVectorOnConstant(double constant) throws VectorException {
+    public Vector divideVectorOnConstant(final double constant) throws VectorException {
         if (Math.abs(0 - constant) < EPS) {
             throw new VectorException("Division by zero");
         }
@@ -147,7 +148,7 @@ public abstract class Vector {
         return divideVectorOnConstant(getVectorLength());
     }
 
-    public static double multiplicateScalarVector(Vector vector1, Vector vector2) {
+    public static double dotProduct(final Vector vector1, final Vector vector2) {
         double scalar = 0;
         if (isEqualSize(vector1, vector2)) {
             for (int index = 0; index < vector1.getSize(); index++) {
@@ -157,7 +158,7 @@ public abstract class Vector {
         return scalar;
     }
 
-    public void swapElements(int index, int changingIndex) {
+    public void swapElements(final int index, final int changingIndex) {
         double changingValue = this.get(index);
         this.set(index, this.get(changingIndex));
         this.set(changingIndex,changingValue);
