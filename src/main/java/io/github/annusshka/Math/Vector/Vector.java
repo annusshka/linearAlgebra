@@ -13,7 +13,7 @@ public abstract class Vector {
 
     protected double[] vector;
 
-    public Vector(double[] vector, int size) {
+    public Vector(double[] vector, final int size) {
         if (vector.length == size) {
             this.vector = vector;
             this.size = size;
@@ -96,7 +96,7 @@ public abstract class Vector {
         return resultVector;
     }
 
-    public static Vector minusVector(final Vector vector1, final Vector vector2) throws VectorException {
+    public Vector minusVector(final Vector vector1, final Vector vector2) throws VectorException {
         Vector resultVector = vector1.getZeroVector(vector1.getSize());
 
         if (isEqualSize(vector1, vector2)) {
@@ -156,6 +156,10 @@ public abstract class Vector {
             }
         }
         return scalar;
+    }
+
+    public double dotProduct(final Vector vector) {
+        return dotProduct(this, vector);
     }
 
     public void swapElements(final int index, final int changingIndex) {

@@ -4,15 +4,19 @@ package io.github.annusshka.Math.Vector;
  * Класс вектора размерности 4, реализация абстрактного класса Vector
  */
 
-public class Vector4f extends Vector {
+public class Vector4d extends Vector {
 
     private static final int size = 4;
 
-    private double[] vector;
+    private double[] vector = new double[size];
 
-    public Vector4f(double[] vector) {
+    public Vector4d(double[] vector) {
         super(vector, size);
         this.vector = vector;
+    }
+
+    public Vector4d() {
+        super(new double[size], size);
     }
 
     @Override
@@ -20,6 +24,6 @@ public class Vector4f extends Vector {
         if (size != this.getSize()) {
             size = this.getSize();
         }
-        return new Vector4f(new double[size]);
+        return new Vector4d(new double[size]);
     }
 }

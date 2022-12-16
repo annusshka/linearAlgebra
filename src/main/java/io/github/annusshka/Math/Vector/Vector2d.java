@@ -4,15 +4,19 @@ package io.github.annusshka.Math.Vector;
  * Класс вектора размерности 2, реализация абстрактного класса Vector
  */
 
-public class Vector2f extends Vector {
+public class Vector2d extends Vector {
 
     private static final int size = 2;
 
     private double[] vector = new double[size];
 
-    public Vector2f(double[] vector) {
+    public Vector2d(double[] vector) {
         super(vector, size);
         this.vector = vector;
+    }
+
+    public Vector2d() {
+        super(new double[size], size);
     }
 
     @Override
@@ -20,6 +24,6 @@ public class Vector2f extends Vector {
         if (size != this.getSize()) {
             size = this.getSize();
         }
-        return new Vector2f(new double[size]);
+        return new Vector2d(new double[size]);
     }
 }

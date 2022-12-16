@@ -74,7 +74,6 @@ public abstract class Matrix {
         }
     }
 
-
     public boolean isEqualSize(final Matrix matrix2) {
         return this.getLength() == matrix2.getLength();
     }
@@ -100,7 +99,7 @@ public abstract class Matrix {
      * @param eps показывает точность вычислений
      * @return результат проверки
      */
-    public static boolean isUnitMatrix(final Matrix matrix, final double eps) {
+    public static boolean isIdentityMatrix(final Matrix matrix, final double eps) {
         double firstElement = matrix.get(0);
         if (Math.abs(firstElement) < eps) {
             return false;
@@ -159,7 +158,7 @@ public abstract class Matrix {
      * @return полученную матрицу
      * @throws MatrixException оповещает о том, что пытались перемножить разные по размеру матрицы
      */
-    public static Matrix sumMatrix(Matrix matrix1, Matrix matrix2) throws MatrixException {
+    public static Matrix sumMatrix(final Matrix matrix1, final Matrix matrix2) throws MatrixException {
         Matrix matrix = matrix1.getZeroMatrix(matrix1.size);
 
         if (matrix1.isEqualSize(matrix2)) {
@@ -174,7 +173,7 @@ public abstract class Matrix {
         return matrix;
     }
 
-    public static Matrix minusMatrix(Matrix matrix1, Matrix matrix2) throws MatrixException {
+    public static Matrix minusMatrix(final Matrix matrix1, final Matrix matrix2) throws MatrixException {
         Matrix matrix = matrix1.getZeroMatrix(matrix1.size);
 
         if (matrix1.isEqualSize(matrix2)) {
@@ -207,14 +206,14 @@ public abstract class Matrix {
             throw new MatrixException("Different sizes can't be multiplicated");
         }
 
-        Vector result = vector.getZeroVector(this.getSize());
+        Vector result = vector.getZeroVector(size);
         int indexShift = 0;
 
-        for (int indexRow = 0; indexRow < this.getSize(); indexRow++) {
+        for (int indexRow = 0; indexRow < size; indexRow++) {
             indexShift = 0;
 
-            while (indexShift < this.getSize()) {
-                result.getVector()[indexRow] += this.get(indexRow * this.getSize() + indexShift) *
+            while (indexShift < size) {
+                result.getVector()[indexRow] += this.get(indexRow * size + indexShift) *
                         vector.get(indexShift);
                 indexShift++;
             }
@@ -225,7 +224,6 @@ public abstract class Matrix {
 
     public static Matrix multiplicateMatrices(final Matrix matrix1, final Matrix matrix2)
             throws MatrixException {
-
         if (!matrix1.isEqualSize(matrix2)) {
             throw new MatrixException("Different sizes can't be multiplicated");
         }
@@ -334,8 +332,8 @@ public abstract class Matrix {
      * @param indexCol индекс столбца, с которого начинается преобразование
      */
     private void multiplicateOnCoeff(
-            double coeffNextRow, double coeffActualRow,
-            int index, int indexRow, int indexCol) {
+            final double coeffNextRow, final double coeffActualRow,
+            final int index, final int indexRow, int indexCol) {
 
         while (indexCol < size) {
             int actualIndex = indexRow * size + indexCol;
@@ -365,47 +363,6 @@ public abstract class Matrix {
 
         return changingIndexRow;
     }
-    /*
-    public void getInverseMatrix() throws MatrixException {
-        Matrix unitMatrix = createIdentityMatrix();
-        double coeff, coeffNextRow, coeffActualRow;
-        int indexCol, indexRow, changingIndexRow;
-
-        for (int index = 0; index < size - 1; index++) {
-            indexCol = index;
-            indexRow = index + 1;
-
-            changingIndexRow = this.getSwapIndexRow(index);
-            // changingIndexRow == -2 -> на главной диагонали находится ноль, значит определитель равен 0
-            if (changingIndexRow == -2) {
-                throw new MatrixException("Matrix hasn't inverse matrix");
-            } else if (changingIndexRow != -1) {
-                while (indexCol < size) {
-                    this.swapElements(index * size + indexCol, changingIndexRow * size + indexCol);
-                    indexCol++;
-                }
-            }
-
-            coeffActualRow = this.get(index * size + index);
-            while (indexRow < size) {
-                coeff = getCoeff(this.get(indexRow * size + index), this.get(index * size + index));
-                coeffNextRow = this.get(indexRow * size + index);
-
-                if (coeff % 1 != 0) {
-                    this.multiplicateOnCoeff(coeffNextRow, coeffActualRow, index, indexRow, 0);
-                    unitMatrix.multiplicateOnCoeff(coeffNextRow, coeffActualRow, index, indexRow, 0);
-                } else {
-                    this.multiplicateOnCoeff(coeff, 1, index, indexRow, 0);
-                    unitMatrix.multiplicateOnCoeff(coeff, 1, index, indexRow, 0);
-                }
-                indexRow++;
-            }
-        }
-
-        reversePassOfInverseMatrixMethod(this, unitMatrix);
-    }
-
-     */
 
     /**
      * Метод получения обратной матрицы. Изначальную матрицу умножает на единичную, затем превращает изначальную
@@ -414,7 +371,7 @@ public abstract class Matrix {
      * @return обратный ход метода, который возвращает обратную матрицу
      *  @throws MatrixException сообщает о том, что матрица не имеет обратной матрицы
      */
-    public static Matrix getInverseMatrix(Matrix matrix) throws MatrixException {
+    public static Matrix getInverseMatrix(final Matrix matrix) throws MatrixException {
         Matrix unitMatrix = matrix.createIdentityMatrix();
         double coeff, coeffNextRow, coeffActualRow;
         int indexCol, indexRow, changingIndexRow;
@@ -460,7 +417,7 @@ public abstract class Matrix {
      * @param unitMatrix преобразованная в методе getInverseMatrix единичная матрица
      * @return обратную матрицу
      */
-    private static Matrix reversePassOfInverseMatrixMethod(Matrix matrix, Matrix unitMatrix) {
+    private static Matrix reversePassOfInverseMatrixMethod(final Matrix matrix, final Matrix unitMatrix) {
         int indexRow, indexCol;
         int size = matrix.getSize();
         double coeff;
@@ -508,7 +465,7 @@ public abstract class Matrix {
      * @return вектор-столбец неизвестных переменных
      * @throws MatrixException оповещает, если система не имеет решений
      */
-    public static Vector solutionByGaussMethod(Matrix matrix, Vector vector) throws MatrixException {
+    public static Vector solutionByGaussMethod(final Matrix matrix, final Vector vector) throws MatrixException {
         double coeff, coeffNextRow, coeffActualRow;
         int indexCol, indexRow, changingIndexRow;
         int size = matrix.getSize();

@@ -1,10 +1,10 @@
 package io.github.annusshka.Math.Matrix;
 
 import io.github.annusshka.Math.Vector.Vector;
-import io.github.annusshka.Math.Vector.Vector4f;
+import io.github.annusshka.Math.Vector.Vector4d;
 
 
-public class Matrix4x extends Matrix {
+public class Matrix4d extends Matrix {
 
     static final int length = 16;
 
@@ -12,14 +12,18 @@ public class Matrix4x extends Matrix {
 
     static double[] vector = new double[length];
 
-    public Matrix4x(double[] vector) {
+    public Matrix4d(double[] vector) {
         super(vector, size);
-        Matrix4x.vector = vector;
+        Matrix4d.vector = vector;
+    }
+
+    public Matrix4d() {
+        super(new double[length], size);
     }
 
     @Override
-    public Matrix getZeroMatrix(int size) {
-        return new Matrix4x(new double[length]);
+    public Matrix getZeroMatrix(final int size) {
+        return new Matrix4d(new double[length]);
     }
 
     @Override
@@ -27,15 +31,15 @@ public class Matrix4x extends Matrix {
         if (size != this.getSize()) {
             size = this.getSize();
         }
-        return new Vector4f(new double[size]);
+        return new Vector4d(new double[size]);
     }
 
     public static Matrix getZeroMatrix() {
-        return new Matrix4x(new double[length]);
+        return new Matrix4d(new double[length]);
     }
 
-    public Matrix createIdentityMatrix(double value) {
-        Matrix4x matrix = new Matrix4x(new double[size * size]);
+    public Matrix createIdentityMatrix(final double value) {
+        Matrix4d matrix = new Matrix4d(new double[size * size]);
 
         int indexMainDiagonal = 0;
         for (int index = 0; index < matrix.getLength(); index++) {
@@ -60,7 +64,7 @@ public class Matrix4x extends Matrix {
      * @param matrix
      * @return возвращает определитель
      */
-    public static double getMatrixDeterminant(Matrix matrix) {
+    public static double getMatrixDeterminant(final Matrix matrix) {
         double determinant = 0.0;
         int indexCol, indexCol1, indexCol2, indexCol3;
         int indexRow = 0;
@@ -93,7 +97,7 @@ public class Matrix4x extends Matrix {
             }
             indexRow = 0;
 
-            determinant += sign * matrix.get(index) * Matrix3x.getMatrixDeterminant(new Matrix3x(m));
+            determinant += sign * matrix.get(index) * Matrix3d.getMatrixDeterminant(new Matrix3d(m));
         }
 
         return determinant;

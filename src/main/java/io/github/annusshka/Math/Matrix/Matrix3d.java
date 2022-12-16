@@ -1,9 +1,9 @@
 package io.github.annusshka.Math.Matrix;
 
 import io.github.annusshka.Math.Vector.Vector;
-import io.github.annusshka.Math.Vector.Vector3f;
+import io.github.annusshka.Math.Vector.Vector3d;
 
-public class Matrix3x extends Matrix {
+public class Matrix3d extends Matrix {
 
     static final int size = 3;
 
@@ -11,14 +11,18 @@ public class Matrix3x extends Matrix {
 
     static double[] vector = new double[length];
 
-    public Matrix3x(double[] vector) {
+    public Matrix3d(double[] vector) {
         super(vector, size);
-        Matrix3x.vector = vector;
+        Matrix3d.vector = vector;
+    }
+
+    public Matrix3d() {
+        super(new double[length], size);
     }
 
     @Override
     public Matrix getZeroMatrix(int size) {
-        return new Matrix3x(new double[length]);
+        return new Matrix3d(new double[length]);
     }
 
     @Override
@@ -26,16 +30,16 @@ public class Matrix3x extends Matrix {
         if (size != this.getSize()) {
             size = this.getSize();
         }
-        return new Vector3f(new double[size]);
+        return new Vector3d(new double[size]);
     }
 
     public static Matrix getZeroMatrix() {
-        return new Matrix3x(new double[length]);
+        return new Matrix3d(new double[length]);
     }
 
     @Override
     public Matrix createIdentityMatrix(final double value) {
-        Matrix3x matrix = new Matrix3x(new double[size * size]);
+        Matrix3d matrix = new Matrix3d(new double[size * size]);
 
         int indexMainDiagonal = 0;
         for (int index = 0; index < matrix.getLength(); index++) {
@@ -60,7 +64,7 @@ public class Matrix3x extends Matrix {
      * @param matrix
      * @return возвращает определитель
      */
-    public static double getMatrixDeterminant(final Matrix3x matrix) {
+    public static double getMatrixDeterminant(final Matrix3d matrix) {
         double determinant = 0.0;
 
         for (int index = 0; index < matrix.getSize(); index++) {
