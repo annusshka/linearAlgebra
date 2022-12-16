@@ -1,10 +1,10 @@
 package io.github.annusshka.Math.Matrix;
 
 import io.github.annusshka.Math.Vector.Vector;
-import io.github.annusshka.Math.Vector.Vector4d;
+import io.github.annusshka.Math.Vector.Vector4f;
 
 
-public class Matrix4d extends Matrix {
+public class Matrix4f extends Matrix {
 
     private static final int length = 16;
 
@@ -12,18 +12,18 @@ public class Matrix4d extends Matrix {
 
     private float[] vector = new float[length];
 
-    public Matrix4d(float[] vector) {
+    public Matrix4f(float[] vector) {
         super(vector, size);
         this.vector = vector;
     }
 
-    public Matrix4d() {
+    public Matrix4f() {
         super(new float[length], size);
     }
 
     @Override
     public Matrix getZeroMatrix(final int size) {
-        return new Matrix4d(new float[length]);
+        return new Matrix4f(new float[length]);
     }
 
     @Override
@@ -31,15 +31,15 @@ public class Matrix4d extends Matrix {
         if (size != this.getSize()) {
             size = this.getSize();
         }
-        return new Vector4d(new float[size]);
+        return new Vector4f(new float[size]);
     }
 
     public static Matrix getZeroMatrix() {
-        return new Matrix4d(new float[length]);
+        return new Matrix4f(new float[length]);
     }
 
     public Matrix createIdentityMatrix(final float value) {
-        Matrix4d matrix = new Matrix4d(new float[size * size]);
+        Matrix4f matrix = new Matrix4f(new float[size * size]);
 
         int indexMainDiagonal = 0;
         for (int index = 0; index < matrix.getLength(); index++) {
@@ -97,7 +97,7 @@ public class Matrix4d extends Matrix {
             }
             indexRow = 0;
 
-            determinant += sign * matrix.get(index) * Matrix3d.getMatrixDeterminant(new Matrix3d(m));
+            determinant += sign * matrix.get(index) * Matrix3f.getMatrixDeterminant(new Matrix3f(m));
         }
 
         return determinant;

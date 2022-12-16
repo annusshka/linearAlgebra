@@ -1,21 +1,21 @@
 package io.github.annusshka.Math.Vector;
 
 /**
- * Класс вектора размерности 2, реализация абстрактного класса Vector
+ * Класс вектора размерности 4, реализация абстрактного класса Vector
  */
 
-public class Vector2d extends Vector {
+public class Vector4f extends Vector {
 
-    private static final int size = 2;
+    private static final int size = 4;
 
     private float[] vector = new float[size];
 
-    public Vector2d(float[] vector) {
+    public Vector4f(float[] vector) {
         super(vector, size);
         this.vector = vector;
     }
 
-    public Vector2d() {
+    public Vector4f() {
         super(new float[size], size);
     }
 
@@ -24,6 +24,6 @@ public class Vector2d extends Vector {
         if (size != this.getSize()) {
             size = this.getSize();
         }
-        return new Vector2d(new float[size]);
+        return new Vector4f(new float[size]);
     }
 }

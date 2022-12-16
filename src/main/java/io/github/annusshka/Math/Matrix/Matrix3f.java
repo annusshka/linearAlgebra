@@ -1,9 +1,9 @@
 package io.github.annusshka.Math.Matrix;
 
 import io.github.annusshka.Math.Vector.Vector;
-import io.github.annusshka.Math.Vector.Vector3d;
+import io.github.annusshka.Math.Vector.Vector3f;
 
-public class Matrix3d extends Matrix {
+public class Matrix3f extends Matrix {
 
     private static final int size = 3;
 
@@ -11,18 +11,18 @@ public class Matrix3d extends Matrix {
 
     private float[] vector = new float[length];
 
-    public Matrix3d(float[] vector) {
+    public Matrix3f(float[] vector) {
         super(vector, size);
         this.vector = vector;
     }
 
-    public Matrix3d() {
+    public Matrix3f() {
         super(new float[length], size);
     }
 
     @Override
     public Matrix getZeroMatrix(int size) {
-        return new Matrix3d(new float[length]);
+        return new Matrix3f(new float[length]);
     }
 
     @Override
@@ -30,16 +30,16 @@ public class Matrix3d extends Matrix {
         if (size != this.getSize()) {
             size = this.getSize();
         }
-        return new Vector3d(new float[size]);
+        return new Vector3f(new float[size]);
     }
 
     public static Matrix getZeroMatrix() {
-        return new Matrix3d(new float[length]);
+        return new Matrix3f(new float[length]);
     }
 
     @Override
     public Matrix createIdentityMatrix(final float value) {
-        Matrix3d matrix = new Matrix3d(new float[size * size]);
+        Matrix3f matrix = new Matrix3f(new float[size * size]);
 
         int indexMainDiagonal = 0;
         for (int index = 0; index < matrix.getLength(); index++) {
@@ -64,7 +64,7 @@ public class Matrix3d extends Matrix {
      * @param matrix
      * @return возвращает определитель
      */
-    public static float getMatrixDeterminant(final Matrix3d matrix) {
+    public static float getMatrixDeterminant(final Matrix3f matrix) {
         float determinant = 0.0f;
 
         for (int index = 0; index < matrix.getSize(); index++) {
