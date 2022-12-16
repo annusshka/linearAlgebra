@@ -8,15 +8,15 @@ public class Vector4d extends Vector {
 
     private static final int size = 4;
 
-    private double[] vector = new double[size];
+    private float[] vector = new float[size];
 
-    public Vector4d(double[] vector) {
+    public Vector4d(float[] vector) {
         super(vector, size);
         this.vector = vector;
     }
 
     public Vector4d() {
-        super(new double[size], size);
+        super(new float[size], size);
     }
 
     @Override
@@ -24,6 +24,6 @@ public class Vector4d extends Vector {
         if (size != this.getSize()) {
             size = this.getSize();
         }
-        return new Vector4d(new double[size]);
+        return new Vector4d(new float[size]);
     }
 }

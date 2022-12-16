@@ -8,15 +8,15 @@ public class Vector2d extends Vector {
 
     private static final int size = 2;
 
-    private double[] vector = new double[size];
+    private float[] vector = new float[size];
 
-    public Vector2d(double[] vector) {
+    public Vector2d(float[] vector) {
         super(vector, size);
         this.vector = vector;
     }
 
     public Vector2d() {
-        super(new double[size], size);
+        super(new float[size], size);
     }
 
     @Override
@@ -24,6 +24,6 @@ public class Vector2d extends Vector {
         if (size != this.getSize()) {
             size = this.getSize();
         }
-        return new Vector2d(new double[size]);
+        return new Vector2d(new float[size]);
     }
 }

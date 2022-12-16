@@ -14,27 +14,27 @@ public abstract class Matrix {
 
     protected final int length;
 
-    double[] vector;
+    protected float[] vector;
 
-    public Matrix(double[] vector, final int size) {
+    public Matrix(float[] vector, final int size) {
         if (vector.length == size * size) {
             this.vector = vector;
             this.size = size;
             this.length = size * size;
         } else if (size > 0) {
-            double[] rightVector = new double[size * size];
+            float[] rightVector = new float[size * size];
             System.arraycopy(vector, 0, rightVector, 0, Math.min(vector.length, size * size));
             this.vector = rightVector;
             this.size = size;
             this.length = size * size;
         } else {
-            this.vector = new double[0];
+            this.vector = new float[0];
             this.size = 0;
             this.length = 0;
         }
     }
 
-    static final float EPS = 1e-7f;
+    static final float EPS = 1e-6f;
 
     public int getSize() {
         return size;
@@ -44,12 +44,12 @@ public abstract class Matrix {
         return length;
     }
 
-    public double[] getVector() {
+    public float[] getVector() {
         return vector;
     }
 
-    public double get(final int index) {
-        double element = 0;
+    public float get(final int index) {
+        float element = 0;
         try {
             element = vector[index];
         } catch (IndexOutOfBoundsException e) {
@@ -58,17 +58,17 @@ public abstract class Matrix {
         return element;
     }
 
-    public void set(final int index, final double value) {
+    public void set(final int index, final float value) {
         if (index >= 0 && index < getVector().length) {
             vector[index] = value;
         }
     }
 
-    public void setData(double[] data) {
+    public void setData(float[] data) {
         if (data.length == length) {
             this.vector = data;
         } else {
-            double[] rightVector = new double[size];
+            float[] rightVector = new float[size];
             System.arraycopy(data, 0, rightVector, 0, Math.min(data.length, size));
             this.vector = rightVector;
         }
@@ -99,8 +99,8 @@ public abstract class Matrix {
      * @param eps показывает точность вычислений
      * @return результат проверки
      */
-    public static boolean isIdentityMatrix(final Matrix matrix, final double eps) {
-        double firstElement = matrix.get(0);
+    public static boolean isIdentityMatrix(final Matrix matrix, final float eps) {
+        float firstElement = matrix.get(0);
         if (Math.abs(firstElement) < eps) {
             return false;
         }
@@ -121,7 +121,7 @@ public abstract class Matrix {
         return true;
     }
 
-    public abstract Matrix createIdentityMatrix(final double value);
+    public abstract Matrix createIdentityMatrix(final float value);
 
     public abstract Matrix createIdentityMatrix();
 
@@ -188,17 +188,17 @@ public abstract class Matrix {
         return matrix;
     }
 
-    public void multiplicateOnValue(final double value) {
+    public void multiplicateOnValue(final float value) {
         for (int index = 0; index < this.getLength(); index++) {
             this.set(index, this.get(index) * value);
         }
     }
 
-    public void divideOnValue(final double value) throws MatrixException {
+    public void divideOnValue(final float value) throws MatrixException {
         if (Math.abs(value) < EPS) {
             throw new Matrix.MatrixException("Division by zero");
         }
-        multiplicateOnValue(1.0 / value);
+        multiplicateOnValue(1.0f / value);
     }
 
     public Vector multiplicateOnVector(final Vector vector) throws MatrixException {
@@ -252,9 +252,9 @@ public abstract class Matrix {
      * на главной диагонали
      * @return определитель
      */
-    public double getDeterminant() {
-        final double detCoeff = this.getTriangleMatrix();
-        double determinant = 1;
+    public float getDeterminant() {
+        final float detCoeff = this.getTriangleMatrix();
+        float determinant = 1;
 
         for (int index = 0; index < size; index++) {
             determinant *= this.get(index * size + index);
@@ -273,9 +273,9 @@ public abstract class Matrix {
      * Метод превращения исходной матрицы в треугольную, используется для поиска определителя
      * @return коэффициент определителя, полученный вследствие преобразований матрицы
      */
-    private double getTriangleMatrix() {
+    private float getTriangleMatrix() {
         int indexCol = 0, changingIndexRow = 0;
-        double detCoeff = 1;
+        float detCoeff = 1;
 
         for (int index = 0; index < size - 1; index++) {
             indexCol = 0;
@@ -302,10 +302,10 @@ public abstract class Matrix {
      * @param index индекс строки/столбца, по нему находят индекс элемента, по которому происходит обнуление
      * @return коэффициент определителя, полученный вследствие матричных преобразований
      */
-    private double getZeroCol(final int index) {
+    private float getZeroCol(final int index) {
         int indexNextRow = index + 1;
-        double coeff, coeffNextRow, coeffActualRow = this.get(index * size + index);
-        double detCoeff = 1;
+        float coeff, coeffNextRow, coeffActualRow = this.get(index * size + index);
+        float detCoeff = 1;
 
         while (indexNextRow < size) {
             coeff = getCoeff(this.get(indexNextRow * size + index), this.get(index * size + index));
@@ -332,7 +332,7 @@ public abstract class Matrix {
      * @param indexCol индекс столбца, с которого начинается преобразование
      */
     private void multiplicateOnCoeff(
-            final double coeffNextRow, final double coeffActualRow,
+            final float coeffNextRow, final float coeffActualRow,
             final int index, final int indexRow, int indexCol) {
 
         while (indexCol < size) {
@@ -348,7 +348,7 @@ public abstract class Matrix {
     private int getSwapIndexRow(final int index) {
         int changingIndexRow = -1;
         int actualIndex = index * size + index;
-        double minValue = Math.abs(this.get(actualIndex));
+        float minValue = Math.abs(this.get(actualIndex));
 
         for (int indexRow = index + 1; indexRow < size; indexRow++) {
             actualIndex = indexRow * size + index;
@@ -373,7 +373,7 @@ public abstract class Matrix {
      */
     public static Matrix getInverseMatrix(final Matrix matrix) throws MatrixException {
         Matrix unitMatrix = matrix.createIdentityMatrix();
-        double coeff, coeffNextRow, coeffActualRow;
+        float coeff, coeffNextRow, coeffActualRow;
         int indexCol, indexRow, changingIndexRow;
         int size = matrix.getSize();
 
@@ -420,7 +420,7 @@ public abstract class Matrix {
     private static Matrix reversePassOfInverseMatrixMethod(final Matrix matrix, final Matrix unitMatrix) {
         int indexRow, indexCol;
         int size = matrix.getSize();
-        double coeff;
+        float coeff;
 
         for (int index = matrix.getSize() - 1; index >= 0; index--) {
             indexRow = index - 1;
@@ -451,7 +451,7 @@ public abstract class Matrix {
     }
 
     private void swapElements(final int index, final int changingIndex) {
-        final double changingValue = this.get(index);
+        final float changingValue = this.get(index);
         this.getVector()[index] = this.get(changingIndex);
         this.getVector()[changingIndex] = changingValue;
     }
@@ -466,7 +466,7 @@ public abstract class Matrix {
      * @throws MatrixException оповещает, если система не имеет решений
      */
     public static Vector solutionByGaussMethod(final Matrix matrix, final Vector vector) throws MatrixException {
-        double coeff, coeffNextRow, coeffActualRow;
+        float coeff, coeffNextRow, coeffActualRow;
         int indexCol, indexRow, changingIndexRow;
         int size = matrix.getSize();
 
@@ -519,7 +519,7 @@ public abstract class Matrix {
         Vector solutionVector = vector.getZeroVector(vector.getSize());
         int indexCol;
         int size = matrix.getSize();
-        double sum, matrixValue, vectorValue;
+        float sum, matrixValue, vectorValue;
 
         for (int index = size - 1; index >= 0; index--) {
             sum = 0;
@@ -548,7 +548,7 @@ public abstract class Matrix {
         return solutionVector;
     }
 
-    private static double getCoeff(final double value1, final double value2) {
+    private static float getCoeff(final float value1, final float value2) {
         if (Math.abs(value2) < EPS) {
             throw new ArithmeticException("Division by zero");
         }

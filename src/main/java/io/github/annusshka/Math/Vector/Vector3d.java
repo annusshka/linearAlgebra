@@ -8,15 +8,15 @@ public class Vector3d extends Vector {
 
     private static final int size = 3;
 
-    private double[] vector = new double[size];
+    private float[] vector = new float[size];
 
-    public Vector3d(double[] vector) {
+    public Vector3d(float[] vector) {
         super(vector, size);
         this.vector = vector;
     }
 
     public Vector3d() {
-        super(new double[size], size);
+        super(new float[size], size);
     }
 
     @Override
@@ -24,7 +24,7 @@ public class Vector3d extends Vector {
         if (size != this.getSize()) {
             size = this.getSize();
         }
-        return new Vector3d(new double[size]);
+        return new Vector3d(new float[size]);
     }
 
     public void crossProduct(final Vector3d vector1, final Vector3d vector2) {

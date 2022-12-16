@@ -7,12 +7,12 @@
     <list default="true" id="cef0a361-7786-4b95-a095-988e0bd77512" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Matrix/Matrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Matrix/Matrix.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Matrix/Matrix3x.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Matrix/Matrix3d.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Matrix/Matrix4x.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Matrix/Matrix4d.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Matrix/Matrix3d.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Matrix/Matrix3d.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Matrix/Matrix4d.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Matrix/Matrix4d.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Vector/Vector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Vector/Vector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Vector/Vector2f.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Vector/Vector2d.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Vector/Vector3f.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Vector/Vector3d.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Vector/Vector4f.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Vector/Vector4d.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Vector/Vector2d.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Vector/Vector2d.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Vector/Vector3d.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Vector/Vector3d.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Vector/Vector4d.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Vector/Vector4d.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/io/github/annusshka/MatrixTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/io/github/annusshka/MatrixTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/io/github/annusshka/VectorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/io/github/annusshka/VectorTest.java" afterDir="false" />
     </list>
@@ -52,7 +52,7 @@
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
   }
 }</component>
-  <component name="RunManager" selected="JUnit.VectorTest">
+  <component name="RunManager" selected="JUnit.MatrixTest">
     <configuration name="MatrixTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="LinearAlgebra" />
       <extension name="coverage">
@@ -68,7 +68,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MatrixTest.isUnitMatrix" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MatrixTest.multiplicateOnVector" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="LinearAlgebra" />
       <extension name="coverage">
         <pattern>
@@ -78,23 +78,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="io.github.annusshka" />
       <option name="MAIN_CLASS_NAME" value="io.github.annusshka.MatrixTest" />
-      <option name="METHOD_NAME" value="isUnitMatrix" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="MatrixTest.sumMatrix" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="LinearAlgebra" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="io.github.annusshka.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="io.github.annusshka" />
-      <option name="MAIN_CLASS_NAME" value="io.github.annusshka.MatrixTest" />
-      <option name="METHOD_NAME" value="sumMatrix" />
+      <option name="METHOD_NAME" value="multiplicateOnVector" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -115,7 +99,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="VectorTest.multiplicationVector" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="VectorTest.isEqual" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="LinearAlgebra" />
       <extension name="coverage">
         <pattern>
@@ -125,7 +109,23 @@
       </extension>
       <option name="PACKAGE_NAME" value="io.github.annusshka" />
       <option name="MAIN_CLASS_NAME" value="io.github.annusshka.VectorTest" />
-      <option name="METHOD_NAME" value="multiplicationVector" />
+      <option name="METHOD_NAME" value="isEqual" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="VectorTest.multiplicateVectorOnConstant" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="LinearAlgebra" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="io.github.annusshka.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="io.github.annusshka" />
+      <option name="MAIN_CLASS_NAME" value="io.github.annusshka.VectorTest" />
+      <option name="METHOD_NAME" value="multiplicateVectorOnConstant" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -133,11 +133,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.VectorTest" />
         <item itemvalue="JUnit.MatrixTest" />
-        <item itemvalue="JUnit.VectorTest.multiplicationVector" />
-        <item itemvalue="JUnit.MatrixTest.isUnitMatrix" />
-        <item itemvalue="JUnit.MatrixTest.sumMatrix" />
+        <item itemvalue="JUnit.MatrixTest.multiplicateOnVector" />
+        <item itemvalue="JUnit.VectorTest" />
+        <item itemvalue="JUnit.VectorTest.multiplicateVectorOnConstant" />
+        <item itemvalue="JUnit.VectorTest.isEqual" />
       </list>
     </recent_temporary>
   </component>
@@ -174,5 +174,41 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Matrix/Matrix.java</url>
+          <line>81</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Matrix/Matrix.java</url>
+          <line>82</line>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Matrix/Matrix.java</url>
+          <line>83</line>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Matrix/Matrix.java</url>
+          <line>84</line>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Matrix/Matrix.java</url>
+          <line>88</line>
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Matrix/Matrix.java</url>
+          <line>91</line>
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

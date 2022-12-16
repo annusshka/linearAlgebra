@@ -5,24 +5,24 @@ import io.github.annusshka.Math.Vector.Vector3d;
 
 public class Matrix3d extends Matrix {
 
-    static final int size = 3;
+    private static final int size = 3;
 
-    static final int length = 9;
+    private static final int length = 9;
 
-    static double[] vector = new double[length];
+    private float[] vector = new float[length];
 
-    public Matrix3d(double[] vector) {
+    public Matrix3d(float[] vector) {
         super(vector, size);
-        Matrix3d.vector = vector;
+        this.vector = vector;
     }
 
     public Matrix3d() {
-        super(new double[length], size);
+        super(new float[length], size);
     }
 
     @Override
     public Matrix getZeroMatrix(int size) {
-        return new Matrix3d(new double[length]);
+        return new Matrix3d(new float[length]);
     }
 
     @Override
@@ -30,16 +30,16 @@ public class Matrix3d extends Matrix {
         if (size != this.getSize()) {
             size = this.getSize();
         }
-        return new Vector3d(new double[size]);
+        return new Vector3d(new float[size]);
     }
 
     public static Matrix getZeroMatrix() {
-        return new Matrix3d(new double[length]);
+        return new Matrix3d(new float[length]);
     }
 
     @Override
-    public Matrix createIdentityMatrix(final double value) {
-        Matrix3d matrix = new Matrix3d(new double[size * size]);
+    public Matrix createIdentityMatrix(final float value) {
+        Matrix3d matrix = new Matrix3d(new float[size * size]);
 
         int indexMainDiagonal = 0;
         for (int index = 0; index < matrix.getLength(); index++) {
@@ -55,7 +55,7 @@ public class Matrix3d extends Matrix {
 
     @Override
     public Matrix createIdentityMatrix() {
-        return createIdentityMatrix(1);
+        return createIdentityMatrix(1.0f);
     }
 
 
@@ -64,8 +64,8 @@ public class Matrix3d extends Matrix {
      * @param matrix
      * @return возвращает определитель
      */
-    public static double getMatrixDeterminant(final Matrix3d matrix) {
-        double determinant = 0.0;
+    public static float getMatrixDeterminant(final Matrix3d matrix) {
+        float determinant = 0.0f;
 
         for (int index = 0; index < matrix.getSize(); index++) {
             int sign = (int) Math.pow(-1, index % matrix.getSize());
@@ -76,8 +76,8 @@ public class Matrix3d extends Matrix {
         return determinant;
     }
 
-    private double getMinor(final int index) {
-        double value1, value2;
+    private float getMinor(final int index) {
+        float value1, value2;
 
         final int indexCol = index % size;
         final int indexRow = index / size;
