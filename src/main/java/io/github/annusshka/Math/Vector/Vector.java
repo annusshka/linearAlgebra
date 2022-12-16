@@ -158,7 +158,7 @@ public abstract class Vector {
         return scalar;
     }
 
-    public double dotProduct(final Vector vector) {
+    public float dotProduct(final Vector vector) {
         return dotProduct(this, vector);
     }
 

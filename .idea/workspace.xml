@@ -6,15 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="cef0a361-7786-4b95-a095-988e0bd77512" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Matrix/Matrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Matrix/Matrix.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Matrix/Matrix3d.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Matrix/Matrix3d.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Matrix/Matrix4d.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Matrix/Matrix4d.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Vector/Vector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Vector/Vector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Vector/Vector2d.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Vector/Vector2d.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Vector/Vector3d.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Vector/Vector3d.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Vector/Vector4d.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Vector/Vector4d.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/io/github/annusshka/MatrixTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/io/github/annusshka/MatrixTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/io/github/annusshka/VectorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/io/github/annusshka/VectorTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -174,41 +165,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Matrix/Matrix.java</url>
-          <line>81</line>
-          <option name="timeStamp" value="21" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Matrix/Matrix.java</url>
-          <line>82</line>
-          <option name="timeStamp" value="22" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Matrix/Matrix.java</url>
-          <line>83</line>
-          <option name="timeStamp" value="23" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Matrix/Matrix.java</url>
-          <line>84</line>
-          <option name="timeStamp" value="24" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Matrix/Matrix.java</url>
-          <line>88</line>
-          <option name="timeStamp" value="25" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/io/github/annusshka/Math/Matrix/Matrix.java</url>
-          <line>91</line>
-          <option name="timeStamp" value="26" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
